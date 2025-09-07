@@ -5,10 +5,10 @@ colorMode(HSB);
 }
 
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
-background(1,8,79);
+background(34,13,32);
 
 let showEye = false;
-let delayTime = 65500; 
+let delayTime = 64500; 
 let cellSize = 250;
 let scale_factor = 1; // adjust this to scale the main eye ball
 let base = cellSize
@@ -23,7 +23,7 @@ showEye = true;
 if (showEye) {
 
 noStroke();
-fill(57,25,84);
+fill(62,19,36);
 ellipse(cx, cy, 175, 175);
 
 //EYEBALL
@@ -37,7 +37,7 @@ fill(255);
 ellipse(cx, (cy + (base*1/10*scale_factor)), scale_factor*67.5, scale_factor*60);
 
 
-fill(57,25,84); //black pupil
+fill(34,13,32); //black pupil
 ellipse(cx, (cy + (base*1/10*scale_factor)), scale_factor*40, scale_factor*40);
 
 //EYELID
@@ -104,7 +104,7 @@ endShape(CLOSE);
 
 //SHADOW COVER UP - unseen cover up fo the shadow on the eyelid
 noFill();
-stroke(57,25,84); 
+stroke(62,19,36); 
 
 strokeWeight(16*scale_factor);
 let shadowCover = scale_factor*1.12
@@ -128,24 +128,35 @@ vertex(
 endShape();
 
 }
+noStroke();
+fill(146,78,41);
+beginShape();
+vertex(0,250);
+vertex(0, 150);
+curveVertex(0, 100+(vocal*0.4));
+curveVertex(50, 170-(drum*0.2));
+curveVertex(90, 100+(bass*0.3));
+curveVertex(140, 210-(vocal*0.2));
+curveVertex(170, 140+(vocal*0.3));
+curveVertex(210, 180-(drum*0.2));
+curveVertex(250, 80-(bass*0.4));
+vertex(250,250);
+endShape(CLOSE);
 
 noStroke();
-fill(22,105,99)
+fill(167,127,49)
 beginShape();
 vertex(0, 260)
-curveVertex(0,170);
-curveVertex(20,200);
-curveVertex(33, 210+(drum*0.2));
-curveVertex(40,190);
-curveVertex(50, 110);
-curveVertex(100, 135+(bass*0.1));
-curveVertex(120, 120);
-curveVertex(150, 150);
-curveVertex(170,170);
-curveVertex(180, 200+(vocal*0.3));
-curveVertex(200,145);
-curveVertex(220,138);
-curveVertex(250,120);
+curveVertex(0,170+(drum*0.2));
+curveVertex(33, 210-(vocal*0.13));
+curveVertex(50, 110-(bass*0.1));
+curveVertex(100, 135+(drum*0.2));
+curveVertex(120, 120 +(vocal*0.1));
+curveVertex(170,170+(vocal*0.2));
+curveVertex(180, 200+(drum*0.2));
+curveVertex(200,145-(drum*0.2));
+curveVertex(220,138+(bass*0.2));
+curveVertex(250,120+(vocal*0.3));
 
 vertex(250, 250)
 
