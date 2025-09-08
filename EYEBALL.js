@@ -1,5 +1,6 @@
 let cy = 300
 let cx = 125
+let ty = 100
 function setup() {
 colorMode(HSB);
 }
@@ -8,23 +9,32 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 background(34,13,32);
 
 let showEye = false;
-let delayTime = 64500; 
+let delayTime = 65500; 
 let cellSize = 250;
-let scale_factor = 1; // adjust this to scale the main eye ball
+let scale_factor = 1+(vocal*0.002); // adjust this to scale the main eye ball
 let base = cellSize
+
+
  
 if (millis() > delayTime) {
-if (cy > 0 < 150) {
-cy = cy-1;}
+if (cy > 125) {
+cy = cy-0.4;}
 showEye = true;
+if (ty < 320) {
+ty = ty+0.42
+}
 }
 
 
 if (showEye) {
 
 noStroke();
-fill(62,19,36);
-ellipse(cx, cy, 175, 175);
+fill(48, 15, 28, 170);
+ellipse(cx, cy, 220+(drum*0.2), 220+(drum*0.2));
+
+noStroke();
+fill(54, 16, 31);
+ellipse(cx, cy, 175+(bass*0.2), 175+(bass*0.2));
 
 //EYEBALL
 noStroke();
@@ -104,7 +114,7 @@ endShape(CLOSE);
 
 //SHADOW COVER UP - unseen cover up fo the shadow on the eyelid
 noFill();
-stroke(62,19,36); 
+stroke(54, 16, 31); 
 
 strokeWeight(16*scale_factor);
 let shadowCover = scale_factor*1.12
@@ -131,34 +141,34 @@ endShape();
 noStroke();
 fill(146,78,41);
 beginShape();
-vertex(0,250);
-vertex(0, 150);
-curveVertex(0, 100+(vocal*0.4));
-curveVertex(50, 170-(drum*0.2));
-curveVertex(90, 100+(bass*0.3));
-curveVertex(140, 210-(vocal*0.2));
-curveVertex(170, 140+(vocal*0.3));
-curveVertex(210, 180-(drum*0.2));
-curveVertex(250, 80-(bass*0.4));
-vertex(250,250);
+vertex(0,ty+150);
+vertex(0, ty+50);
+curveVertex(0, ty+(vocal*0.4));
+curveVertex(50, ty+70-(drum*0.2));
+curveVertex(90, ty+(bass*0.3));
+curveVertex(140, ty+110-(vocal*0.2));
+curveVertex(170, ty+40+(vocal*0.3));
+curveVertex(210, ty+80-(drum*0.2));
+curveVertex(250, ty-20-(bass*0.4));
+vertex(250,ty+150);
 endShape(CLOSE);
 
 noStroke();
 fill(167,127,49)
 beginShape();
-vertex(0, 260)
-curveVertex(0,170+(drum*0.2));
-curveVertex(33, 210-(vocal*0.13));
-curveVertex(50, 110-(bass*0.1));
-curveVertex(100, 135+(drum*0.2));
-curveVertex(120, 120 +(vocal*0.1));
-curveVertex(170,170+(vocal*0.2));
-curveVertex(180, 200+(drum*0.2));
-curveVertex(200,145-(drum*0.2));
-curveVertex(220,138+(bass*0.2));
-curveVertex(250,120+(vocal*0.3));
+vertex(0, ty+160)
+curveVertex(0,ty+70+(drum*0.2));
+curveVertex(33, ty+110-(vocal*0.13));
+curveVertex(50, ty+10-(bass*0.1));
+curveVertex(100, ty+35+(drum*0.2));
+curveVertex(120, ty+20+(vocal*0.1));
+curveVertex(170,ty+70+(vocal*0.2));
+curveVertex(180, ty+100+(drum*0.2));
+curveVertex(200,ty+45-(drum*0.2));
+curveVertex(220,ty+38+(bass*0.2));
+curveVertex(250,ty+20+(vocal*0.3));
 
-vertex(250, 250)
+vertex(250, ty+150)
 
 
 endShape(CLOSE);
