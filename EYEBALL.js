@@ -1,4 +1,4 @@
-let cy = -100
+let cy = -200
 let cx = 125
 let ty = 100
 let lowering = false;
@@ -10,7 +10,6 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 background(34,13,32);
 
 let showEye = false;
-let delayTime = 2500; 
 let cellSize = 250;
 let scale_factor = 0.8+(vocal*0.002); // adjust this to scale the main eye ball
 let base = cellSize
@@ -24,12 +23,13 @@ vertex(250, 250);
 vertex(0, 250);
 endShape(CLOSE);
 
+
 noStroke();
 fill(167,127,49) //yellow mountain tip
 beginShape();
 curveVertex(100, 143);//9
 curveVertex(77,105);//10
-curveVertex(62.5, 90); //1
+curveVertex(62.5, 90-(bass*0.1)); //1
 curveVertex(31,106); //2
 curveVertex(10,105); //3
 curveVertex(20, 111.5);//4
@@ -66,7 +66,7 @@ curveVertex(155.5, 155.5);
 curveVertex(172.8, 136.3);
 curveVertex(188, 122);
 curveVertex(193.9, 111);
-curveVertex(210, 78.3);//f
+curveVertex(210, 78.3-(drum*0.1));//f
 curveVertex(232.7, 92.16);//g
 curveVertex(250, 97.9);//h
 curveVertex(250, 117);//i
@@ -84,11 +84,11 @@ endShape(CLOSE);
 
 console.log(counter)
  
-if (counter > 100 && counter< 1500) { //range of time this animation is happening
+if (counter > 3600 && counter< 5000) { //range of time this animation is happening
   //first phase
   if (lowering == false){//if lowering = false
     //eye rises
-    if (cy < 40) {
+    if (cy < 25) {
       cy = cy+0.4;
     }
 
@@ -99,7 +99,7 @@ if (counter > 100 && counter< 1500) { //range of time this animation is happenin
     }
   }
 
-  if (counter > 800){
+  if (counter > 4500){
     lowering = true;
   }
 
@@ -124,12 +124,16 @@ if (counter > 100 && counter< 1500) { //range of time this animation is happenin
 if (showEye) {
 
 noStroke();
-fill(255, 0, 0, 20);
-ellipse(cx, cy, 170+(drum*0.2), 170+(drum*0.2));
+fill(255,238,173, 20);
+ellipse(cx, cy, 290+(vocal*0.2), 290+(vocal*0.2));
 
 noStroke();
-fill(54, 16, 31);
-ellipse(cx, cy, 135+(bass*0.2), 135+(bass*0.2));
+fill(255,238,173, 20);
+ellipse(cx, cy, 240+(drum*0.2), 200+(drum*0.2));
+
+noStroke();
+fill(96, 68, 52);
+ellipse(cx, cy, 145+(bass*0.2), 140+(bass*0.2));
 
 //EYEBALL
 noStroke();
@@ -138,7 +142,7 @@ fill(255);
   ellipse(cx, cy, scale_factor*110, scale_factor*130); 
 
 // eye colour. statements
-  fill(115,20,64); 
+  fill(111,40,40); 
 ellipse(cx, (cy + (base*1/10*scale_factor)), scale_factor*67.5, scale_factor*60);
 
 
@@ -149,7 +153,7 @@ ellipse(cx, (cy + (base*1/10*scale_factor)), scale_factor*40, scale_factor*40);
 
 //eyelid colour statements
 
-  fill(110,55,31);
+  fill(255,204,0);
 
 //eyelid shape itself
   beginShape();
@@ -209,7 +213,7 @@ endShape(CLOSE);
 
 //SHADOW COVER UP - unseen cover up fo the shadow on the eyelid
 noFill();
-stroke(54, 16, 31); 
+stroke(96, 68, 52); 
 
 strokeWeight(16*scale_factor);
 let shadowCover = scale_factor*1.12
@@ -233,6 +237,20 @@ vertex(
 endShape();
 
 }
+noStroke();
+fill(167,127,49, 70);
+beginShape();
+curveVertex(0, 190);
+curveVertex(89,200);
+curveVertex(111.4, 205);
+curveVertex(134.4+(bass*0.2), 211.2);
+curveVertex(115.2, 220.8);
+curveVertex(92.16, 230.4);
+curveVertex(53.8, 263);
+curveVertex(38.4, 250);
+vertex(37, 250);
+vertex(0, 250);
+endShape(CLOSE);
 
  noStroke();
 fill(111,40,40);
@@ -247,6 +265,17 @@ vertex(84,189);//15
 vertex(89,205);
 vertex(0, 205);
 vertex(0, 195)
+endShape(CLOSE);
+
+fill(167,127,49, 70);
+beginShape();
+curveVertex(153, 184.32);
+curveVertex(188, 190.2);
+vertex(250, 195.8);
+vertex(250,250);
+vertex(150, 270);
+vertex(200+(bass*0.2), 215);
+curveVertex(161.3, 192);
 endShape(CLOSE);
 
 
@@ -264,6 +293,6 @@ curveVertex(153, 184.32);
 curveVertex(188, 190.2);
 curveVertex(250, 195.8);
 endShape(CLOSE);
-
+  
 }
 
