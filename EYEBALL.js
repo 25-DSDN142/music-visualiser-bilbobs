@@ -1,3 +1,6 @@
+ccx = 125
+ccy = 150
+
 let cy = -200
 let cx = 125
 let ty = 100
@@ -9,16 +12,141 @@ colorMode(HSB);
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
 background(34,13,32);
 
+let show_Bg_Eye = true
 let showEye = false;
 let cellSize = 250;
+let two_scale_factor = 0.2+(vocal*0.001);
 let scale_factor = 0.8+(vocal*0.002); // adjust this to scale the main eye ball
 let base = cellSize
+
+console.log(counter)
+
+if (counter > 3500 && counter< 5000) { //
+show_Bg_Eye = true;
+  if (counter <= 4000) {//if lowering = false //eye rises
+  ccy= map(counter, 3500, 4000, 150, 300); }
+ else { ccy = map(counter, 4000, 5000, 300, 150); }
+}
+
+if (show_Bg_Eye) {
+
+noStroke();
+fill(255,238,173, 20);
+ellipse(ccx, ccy, 145+(vocal*0.2)*two_scale_factor, 145+(vocal*0.2)*two_scale_factor);
+
+noStroke();
+fill(255,238,173, 20);
+ellipse(ccx, ccy, 100+(drum*0.2)*two_scale_factor, 100+(drum*0.2)*two_scale_factor);
+
+noStroke();
+fill(96, 68, 52);
+ellipse(ccx, ccy, 60+(bass*0.2)*two_scale_factor, 60+(bass*0.2)*two_scale_factor);
+
+//EYEBALL
+noStroke();
+// white eye
+fill(255); 
+  ellipse(ccx, ccy, two_scale_factor*110, two_scale_factor*130); 
+
+// eye colour. statements
+  fill(242, 101, 41); 
+ellipse(ccx, (ccy + (base*1/10*two_scale_factor)), two_scale_factor*67.5, two_scale_factor*60);
+
+
+fill(34,13,32); //black pupil
+ellipse(ccx, (ccy + (base*1/10*two_scale_factor)), two_scale_factor*40, two_scale_factor*40);
+
+//EYELID
+
+//eyelid colour statements
+
+  fill(255,204,0);
+beginShape();
+  vertex(0, 0); 
+  vertex(
+    ccx + (base * -1/4 * two_scale_factor), 
+    ccy + (base *  0  * two_scale_factor)
+  );
+  bezierVertex(
+    ccx + (base * -1/4 * two_scale_factor), 
+    ccy + (base * -7/20 * two_scale_factor), 
+    ccx + (base *  1/4 * two_scale_factor), 
+    ccy + (base * -7/20 * two_scale_factor), 
+    ccx + (base *  1/4 * two_scale_factor), 
+    ccy + (base *  0  * two_scale_factor)
+  );
+vertex(
+  ccx + (base *  1/4 * two_scale_factor), 
+  ccy + (base *  0  * two_scale_factor)
+);
+bezierVertex(
+    ccx + (base * 1/4 * two_scale_factor), 
+    ccy + (base * 3/20 * two_scale_factor), 
+    ccx + (base *  -1/4 * two_scale_factor), 
+    ccy + (base * 3/20 * two_scale_factor), 
+    ccx + (base *  -1/4 * two_scale_factor), 
+    ccy + (base *  0  * two_scale_factor)
+  );
+  endShape(CLOSE);
+
+//EYELID SHADOW
+
+fill(0, 0, 0, 40) // slightly transparent shadow 
+beginShape(); 
+vertex(ccx + (base*-2/8 * two_scale_factor), ccy + (base* -1.9/12 * two_scale_factor));
+vertex(
+  ccx + (base * -0.1 * two_scale_factor),
+  ccy + (base * -1/4 * two_scale_factor)
+);
+bezierVertex(
+  ccx + (base * 1/4 * two_scale_factor),
+  ccy + (base * -1.1/4 * two_scale_factor),
+  ccx + (base * -1/10 * two_scale_factor),
+  ccy + (base * -2/5 * two_scale_factor),
+  ccx + (base * -2/25 * two_scale_factor),
+  ccy + (base * 0 * two_scale_factor)
+);
+bezierVertex(
+  ccx + (base * -2/25 * two_scale_factor),
+  ccy + (base * 3/20 * two_scale_factor),
+  ccx + (base * -1/4 * two_scale_factor),
+  ccy + (base * 1/20 * two_scale_factor),
+  ccx + (base * -1.3/5 * two_scale_factor),
+  ccy + (base * 0 * two_scale_factor),
+)
+endShape(CLOSE);
+
+//SHADOW COVER UP - unseen cover up fo the shadow on the eyelid
+noFill();
+stroke(96, 68, 52); 
+
+strokeWeight(16*two_scale_factor);
+let shadowCover_two = two_scale_factor*1.12
+beginShape();
+  vertex(
+    ccx + (base * -1/4 * shadowCover_two), 
+    ccy + (base *  0  * shadowCover_two)
+  );
+  bezierVertex(
+    ccx + (base * -1/4 * shadowCover_two), 
+    ccy + (base * -7/20 * shadowCover_two), 
+    ccx + (base *  1/4 * shadowCover_two), 
+    ccy + (base * -7/20 * shadowCover_two), 
+    ccx + (base *  1/4 * shadowCover_two), 
+    ccy + (base *  0  * shadowCover_two)
+  );
+vertex(
+  ccx + (base *  1/4 * shadowCover_two), 
+  ccy + (base *  0  * shadowCover_two)
+);
+endShape();
+}
 
 noStroke(); 
 fill(21,38,21); // water
 beginShape();
-vertex(0, 175);
-vertex(250, 175);
+vertex(0, 176.5);
+vertex(250, 176.5);
 vertex(250, 250);
 vertex(0, 250);
 endShape(CLOSE);
@@ -79,47 +207,16 @@ curveVertex(180.5, 176);//o
 endShape(CLOSE);
 
 
-
-
-
-console.log(counter)
  
-if (counter > 3600 && counter< 5000) { //range of time this animation is happening
-  //first phase
-  if (lowering == false){//if lowering = false
-    //eye rises
-    if (cy < 25) {
-      cy = cy+0.4;
-    }
-
-    showEye = true;
-   //mountains lower
-    if (ty < 320) {
-      ty = ty+0.42
-    }
-  }
-
-  if (counter > 4500){
-    lowering = true;
-  }
-
-
-  //if lowering = true
-  if (lowering == true){
-    //second phase
-    if (cy < 300) {
-      cy = cy-0.4;
-    }
-
-    showEye = true;
-    //mountains lower
-    if (ty > 100) {
-      ty = ty-0.42
-    }
+if (counter > 3500 && counter< 5000) { //
+showEye = true;
+  if (counter <= 4000) {//if lowering = false //eye rises
+  cy= map(counter, 3500, 4000, -200, 25);
+} else if(counter >4000 && counter< 4200) {
+ cy= map(counter, 4000, 4200, 25, 25) }
+else { cy = map(counter, 4200, 5000, 25, -200);
 }
-
 }
-
 
 if (showEye) {
 
@@ -142,7 +239,7 @@ fill(255);
   ellipse(cx, cy, scale_factor*110, scale_factor*130); 
 
 // eye colour. statements
-  fill(111,40,40); 
+  fill(242, 101, 41); 
 ellipse(cx, (cy + (base*1/10*scale_factor)), scale_factor*67.5, scale_factor*60);
 
 
