@@ -1,5 +1,9 @@
-ccx = 125
-ccy = 150
+let ccx = 125
+let ccy = 150
+
+let cloudx= 0 
+let cloudxx= 0 
+
 
 let cy = -200
 let cx = 125
@@ -390,6 +394,55 @@ curveVertex(153, 184.32);
 curveVertex(188, 190.2);
 curveVertex(250, 195.8);
 endShape(CLOSE);
-  
+
+fill(111,40,40, 150);
+beginShape();
+vertex(250, 207.4);
+vertex(207.4, 211);
+curveVertex(188.2, 215);
+curveVertex(157, 226.6);
+curveVertex(130.6, 270);
+vertex(250,270);
+endShape(CLOSE);
+
+
+if (counter > 3500 && counter< 5000) { //
+  if (counter <= 4000) {//if lowering = false //eye rises
+  cloudxx= map(counter, 3500, 4000, 0, -100);
+} else { cloudxx = map(counter, 4200, 5000, -100, 0);
+}
 }
 
+if (counter > 3500 && counter< 5000) { //
+  if (counter <= 4000) {//if lowering = false //eye rises
+  cloudx= map(counter, 3500, 4000, 0, 150);
+} else { cloudx = map(counter, 4200, 5000, 150, 0);
+}
+}
+
+fill(200, 200, 200, 120*(vocal*0.02))
+beginShape();
+curveVertex(260+(cloudx), 11);
+curveVertex(215+(cloudx),11.5);
+curveVertex(170.4+(cloudx)+(vocal*0.2),14);
+curveVertex(186.2+(cloudx)+(bass*0.2),25);
+curveVertex(150+(cloudx)+(drum*0.2),35);
+curveVertex(195.8+(cloudx)+(bass*0.2),46);
+curveVertex(201.6+(cloudx),58);
+curveVertex(238+(cloudx),61.4);
+curveVertex(260+(cloudx),63);
+endShape(CLOSE);
+
+fill(200, 200, 200, 120*(bass*0.008))
+beginShape();
+curveVertex(0+(cloudxx), 14);
+curveVertex(21.1+(cloudxx), 15);
+curveVertex(57+(cloudxx)+(bass*0.2),20);
+curveVertex(50+(cloudxx)-(drum*0.2),32.6);
+curveVertex(80+(cloudxx)+(vocal*0.2),42.2);
+curveVertex(42+(cloudxx)-(bass*0.2),55);
+curveVertex(60+(cloudxx),65);
+curveVertex(-20+(cloudxx),70);
+endShape(CLOSE);
+
+}
