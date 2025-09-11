@@ -1,47 +1,49 @@
+//variables for background eye
 let ccx = 125
 let ccy = 150
-
+//variables for big eye
+let cy = -200
+let cx = 125
+// variables for left and right cloud
 let cloudx= 0 
 let cloudxx= 0 
 
-
-let cy = -200
-let cx = 125
-let ty = 100
-let lowering = false;
-function setup() {
-colorMode(HSB);
-}
+function setup() {colorMode(HSB);}
 
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
 background(34,13,32);
 
-let show_Bg_Eye = true
-let showEye = false;
+let show_Bg_Eye = true //background eye statement
+let showEye = false; //big eye statement
 let cellSize = 250;
-let two_scale_factor = 0.2+(vocal*0.001);
-let scale_factor = 0.8+(vocal*0.002); // adjust this to scale the main eye ball
+let two_scale_factor = 0.2+(vocal*0.001); // scale for the background eye
+let scale_factor = 0.8+(vocal*0.002); // scale for the big eye
 let base = cellSize
 
-console.log(counter)
+console.log(counter) 
 
-if (counter > 3500 && counter< 5000) { //
+//map for background eye drop and raising back up
+if (counter > 3500 && counter< 5000) { // between these times is when all of this occurs
 show_Bg_Eye = true;
-  if (counter <= 4000) {//if lowering = false //eye rises
-  ccy= map(counter, 3500, 4000, 150, 300); }
- else { ccy = map(counter, 4000, 5000, 300, 150); }
+  if (counter <= 4000) {
+  ccy= map(counter, 3500, 4000, 150, 300); }// eye drops
+ else { ccy = map(counter, 4000, 5000, 300, 150); } //eye raises back to normal
 }
 
+//background eye drawing
 if (show_Bg_Eye) {
 
+//largest circle of light
 noStroke();
-fill(255,238,173, 20);
+fill(255,238,173, 20-(bass*0.09));
 ellipse(ccx, ccy, 145+(vocal*0.2)*two_scale_factor, 145+(vocal*0.2)*two_scale_factor);
 
+//middle circle of light
 noStroke();
-fill(255,238,173, 20);
+fill(255,238,173, 20-(drum*0.09));
 ellipse(ccx, ccy, 100+(drum*0.2)*two_scale_factor, 100+(drum*0.2)*two_scale_factor);
 
+//smallest circle of light
 noStroke();
 fill(96, 68, 52);
 ellipse(ccx, ccy, 60+(bass*0.2)*two_scale_factor, 60+(bass*0.2)*two_scale_factor);
@@ -147,7 +149,7 @@ endShape();
 }
 
 noStroke(); 
-fill(21,38,21); // water
+fill(21,38,21); // green water/river
 beginShape();
 vertex(0, 176.5);
 vertex(250, 176.5);
@@ -190,6 +192,20 @@ curveVertex(58, 143);//13
 curveVertex(40, 127)//12
 endShape(CLOSE);
 
+fill(34,13,32, 50);// shadow on top of the orange and yellow mountain
+beginShape();
+vertex(0, 80);
+curveVertex(15,105); //3
+curveVertex(25, 106.5);//4
+curveVertex(45, 117)//12
+curveVertex(63, 133);//13
+curveVertex(82, 165);//14
+vertex(89,179);//15
+vertex(94,195);
+vertex(0, 195);
+vertex(0, 185)
+endShape(CLOSE);
+
 fill(167,127,49); //yellow right mountain
 beginShape();
 curveVertex(120, 176.6);
@@ -210,29 +226,44 @@ curveVertex(190.16, 175);//n
 curveVertex(180.5, 176);//o
 endShape(CLOSE);
 
+fill(34,13,32, 50); //shadow in between the yellow mountain and red mountain on the right
+beginShape();
+curveVertex(250, 87.9);//h
+curveVertex(250, 107);//i
+curveVertex(225.4, 114.8);//j
+curveVertex(202, 140);//k
+curveVertex(195,145);//l
+curveVertex(190,145); //m
+curveVertex(185.16, 155);//n
+curveVertex(175.5, 160);//o
+curveVertex(138, 180.32);
+curveVertex(183, 180.2);
+curveVertex(250, 185.8);
+endShape(CLOSE);
+
 
  
-if (counter > 3500 && counter< 5000) { //
+if (counter > 3500 && counter< 5000) { //map funcitions for the big eye lowering
 showEye = true;
-  if (counter <= 4000) {//if lowering = false //eye rises
-  cy= map(counter, 3500, 4000, -200, 25);
-} else if(counter >4000 && counter< 4200) {
+  if (counter <= 4000) {
+  cy= map(counter, 3500, 4000, -200, 25); //eye lowers between times
+} else if(counter >4000 && counter< 4200) { //eye stops for 200 count
  cy= map(counter, 4000, 4200, 25, 25) }
-else { cy = map(counter, 4200, 5000, 25, -200);
+else { cy = map(counter, 4200, 5000, 25, -200); //eye rises back up
 }
 }
 
 if (showEye) {
 
-noStroke();
+noStroke(); //big light ray around big eye
 fill(255,238,173, 20);
 ellipse(cx, cy, 290+(vocal*0.2), 290+(vocal*0.2));
 
-noStroke();
+noStroke(); //mid light ray around big eye
 fill(255,238,173, 20);
 ellipse(cx, cy, 240+(drum*0.2), 200+(drum*0.2));
 
-noStroke();
+noStroke();//small light ray around big eye
 fill(96, 68, 52);
 ellipse(cx, cy, 145+(bass*0.2), 140+(bass*0.2));
 
@@ -339,7 +370,7 @@ endShape();
 
 }
 noStroke();
-fill(167,127,49, 70);
+fill(167,127,49, 70); //left light on river
 beginShape();
 curveVertex(0, 190);
 curveVertex(89,200);
@@ -354,7 +385,7 @@ vertex(0, 250);
 endShape(CLOSE);
 
  noStroke();
-fill(111,40,40);
+fill(111,40,40); //left red mountain
 beginShape();
 vertex(0, 90);
 curveVertex(10,105); //3
@@ -368,7 +399,7 @@ vertex(0, 205);
 vertex(0, 195)
 endShape(CLOSE);
 
-fill(167,127,49, 70);
+fill(167,127,49, 70); //right green river light
 beginShape();
 curveVertex(153, 184.32);
 curveVertex(188, 190.2);
@@ -380,7 +411,7 @@ curveVertex(161.3, 192);
 endShape(CLOSE);
 
 
-fill(111,40,40);
+fill(111,40,40); //right red mountain
 beginShape();
 curveVertex(250, 97.9);//h
 curveVertex(250, 117);//i
@@ -395,32 +426,23 @@ curveVertex(188, 190.2);
 curveVertex(250, 195.8);
 endShape(CLOSE);
 
-fill(111,40,40, 150);
-beginShape();
-vertex(250, 207.4);
-vertex(207.4, 211);
-curveVertex(188.2, 215);
-curveVertex(157, 226.6);
-curveVertex(130.6, 270);
-vertex(250,270);
-endShape(CLOSE);
 
-
-if (counter > 3500 && counter< 5000) { //
-  if (counter <= 4000) {//if lowering = false //eye rises
+//map function for cloud on the left to seperate
+if (counter > 3500 && counter< 5000) { 
+  if (counter <= 4000) { // cloud to move left
   cloudxx= map(counter, 3500, 4000, 0, -100);
-} else { cloudxx = map(counter, 4200, 5000, -100, 0);
+} else { cloudxx = map(counter, 4200, 5000, -100, 0); //cloud comes back 
 }
 }
-
+//map function for cloud on the right to seperate
 if (counter > 3500 && counter< 5000) { //
-  if (counter <= 4000) {//if lowering = false //eye rises
-  cloudx= map(counter, 3500, 4000, 0, 150);
-} else { cloudx = map(counter, 4200, 5000, 150, 0);
+  if (counter <= 4000) { //cloud movers right
+  cloudx= map(counter, 3500, 4000, 0, 100);
+} else { cloudx = map(counter, 4200, 5000, 100, 0); //cloud comes back
 }
 }
 
-fill(200, 200, 200, 120*(vocal*0.02))
+fill(200, 200, 200, 120*(vocal*0.02)) //cloud on the right further down
 beginShape();
 curveVertex(260+(cloudx), 11);
 curveVertex(215+(cloudx),11.5);
@@ -433,7 +455,20 @@ curveVertex(238+(cloudx),61.4);
 curveVertex(260+(cloudx),63);
 endShape(CLOSE);
 
-fill(200, 200, 200, 120*(bass*0.008))
+fill(200, 200, 200, 120*(bass*0.009)) //cloud on the right further up
+beginShape();
+curveVertex(270+(cloudx), 21);
+curveVertex(225+(cloudx),21.5);
+curveVertex(180.4+(cloudx)+(vocal*0.2),24);
+curveVertex(196.2+(cloudx)+(bass*0.2),35);
+curveVertex(160+(cloudx)+(drum*0.2),45);
+curveVertex(205.8+(cloudx)+(bass*0.2),56);
+curveVertex(211.6+(cloudx),68);
+curveVertex(248+(cloudx),71.4);
+curveVertex(270+(cloudx),73);
+endShape(CLOSE);
+
+fill(200, 200, 200, 120*(bass*0.008)) //cloud on the left further down
 beginShape();
 curveVertex(0+(cloudxx), 14);
 curveVertex(21.1+(cloudxx), 15);
@@ -443,6 +478,18 @@ curveVertex(80+(cloudxx)+(vocal*0.2),42.2);
 curveVertex(42+(cloudxx)-(bass*0.2),55);
 curveVertex(60+(cloudxx),65);
 curveVertex(-20+(cloudxx),70);
+endShape(CLOSE);
+
+fill(200, 200, 200, 120*(vocal*0.02)) //cloud on the right further up
+beginShape();
+curveVertex(0+(cloudxx), 24);
+curveVertex(21.1+(cloudxx), 25);
+curveVertex(47+(cloudxx)+(bass*0.2),30);
+curveVertex(60+(cloudxx)-(drum*0.2),42.6);
+curveVertex(90+(cloudxx)+(vocal*0.2),52.2);
+curveVertex(52+(cloudxx)-(bass*0.2),65);
+curveVertex(70+(cloudxx),75);
+curveVertex(-20+(cloudxx),80);
 endShape(CLOSE);
 
 }
