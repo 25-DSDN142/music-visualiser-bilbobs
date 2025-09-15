@@ -16,8 +16,8 @@ background(34,13,32);
 let show_Bg_Eye = true //background eye statement
 let showEye = false; //big eye statement
 let cellSize = 250;
-let two_scale_factor = 0.2+(vocal*0.001); // scale for the background eye
-let scale_factor = 0.8+(vocal*0.002); // scale for the big eye
+let two_scale_factor = 0.2+(other*0.001); // scale for the background eye
+let scale_factor = 0.8+(other*0.002); // scale for the big eye
 let base = cellSize
 
 console.log(counter) 
